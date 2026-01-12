@@ -10,6 +10,8 @@ This is a condensed technical reference for AI assistants working with Ava CMS. 
 
 ## Overview
 
+**Full docs:** https://ava.addy.zone/docs
+
 Ava is a flat-file PHP CMS (PHP 8.3+) that requires no database. Content is Markdown files with YAML frontmatter. Configuration is PHP arrays. There's no build step—edit a file, refresh, see changes.
 
 **Core Philosophy:**
@@ -39,6 +41,8 @@ mysite/
 
 
 ## Configuration
+
+**Full docs:** https://ava.addy.zone/docs/configuration
 
 All settings in `app/config/` as PHP arrays. Three main files:
 
@@ -161,9 +165,40 @@ return [
         'search' => [
             'enabled' => true,
             'fields'  => ['title', 'excerpt', 'body'],
+            'weights' => [
+                'title_phrase'   => 80,   // Exact phrase in title
+                'title_token'    => 10,   // Per-word match in title
+                'excerpt_phrase' => 30,   // Exact phrase in excerpt
+                'body_phrase'    => 20,   // Exact phrase in body
+                'body_token'     => 2,    // Per-word match in body
+                'featured'       => 15,   // Bonus for featured:true
+            ],
         ],
     ],
 ];
+```
+
+**Search Weights:** Configure relevance scoring per content type. Higher weights = higher ranking.
+
+| Weight | Default | Description |
+|--------|---------|-------------|
+| `title_phrase` | 80 | Exact phrase match in title |
+| `title_all_tokens` | 40 | All search words in title |
+| `title_token` | 10 | Per-word match in title (max 30) |
+| `excerpt_phrase` | 30 | Exact phrase in excerpt |
+| `excerpt_token` | 3 | Per-word match in excerpt (max 15) |
+| `body_phrase` | 20 | Exact phrase in body |
+| `body_token` | 2 | Per-word match in body (max 10) |
+| `featured` | 15 | Bonus for `featured: true` items |
+| `field_weight` | 5 | Per custom field match |
+
+**Per-query weight override:**
+```php
+$results = $ava->query()
+    ->type('post')
+    ->search('tutorial')
+    ->searchWeights(['title_phrase' => 100, 'featured' => 0])
+    ->get();
 ```
 
 **URL Types:**
@@ -205,6 +240,8 @@ return $config;
 ```
 
 ## Content
+
+**Full docs:** https://ava.addy.zone/docs/content
 
 Content files are Markdown with YAML frontmatter. Located in `content/` folder, organized by content type.
 
@@ -308,6 +345,8 @@ Defined in `ava.php`, expanded at render time:
 
 ## CLI
 
+**Full docs:** https://ava.addy.zone/docs/cli
+
 Run from project root: `./ava <command> [options]`
 
 ### Core Commands
@@ -363,6 +402,8 @@ Plugins can register commands. Bundled plugins provide:
 
 ## Admin Dashboard
 
+**Full docs:** https://ava.addy.zone/docs/admin
+
 Optional web-based admin for quick edits and monitoring. Files remain the source of truth.
 
 ### Enabling
@@ -413,6 +454,8 @@ Admin editor blocks high-risk HTML (`<script>`, `<iframe>`, `on*=` handlers, `ja
 ```
 
 ## Theming
+
+**Full docs:** https://ava.addy.zone/docs/theming
 
 Themes are HTML + PHP templates. No build step, no custom templating language.
 
@@ -550,6 +593,8 @@ return function (\Ava\Application $app): void {
 
 ## Routing
 
+**Full docs:** https://ava.addy.zone/docs/routing
+
 URLs are generated automatically from content structure and configuration. Routes are cached in binary files for instant lookups.
 
 ### URL Types
@@ -631,6 +676,8 @@ $ava->fullUrl('/about')              // https://example.com/about
 
 ## Shortcodes
 
+**Full docs:** https://ava.addy.zone/docs/shortcodes
+
 Dynamic content in Markdown via `[tag]` syntax. Processed after Markdown conversion.
 
 ### Built-in Shortcodes
@@ -686,6 +733,8 @@ PHP files in `snippets/` folder, invoked via `[snippet name="file"]`.
 - Paired content stops at next `[` character
 
 ## Plugins
+
+**Full docs:** https://ava.addy.zone/docs/creating-plugins
 
 Reusable extensions in `plugins/{name}/plugin.php`. Survive theme changes.
 
@@ -801,6 +850,8 @@ Hooks::addFilter('admin.register_pages', function($pages) {
 
 ## Bundled Plugins
 
+**Full docs:** https://ava.addy.zone/docs/bundled-plugins
+
 ### Sitemap
 
 Generates `/sitemap.xml` for search engines.
@@ -849,6 +900,8 @@ Manage URL redirects via admin or CLI. Stored in `storage/redirects.json`.
 **Alternative:** Use `redirect_from:` in content frontmatter for content-based redirects.
 
 ## Performance
+
+**Full docs:** https://ava.addy.zone/docs/performance
 
 Two-layer system: Content Indexing + Webpage Caching.
 
@@ -939,6 +992,8 @@ Stores fully-rendered HTML. Most visitors get static files.
 
 ## Hosting
 
+**Full docs:** https://ava.addy.zone/docs/hosting
+
 **Requirements:** PHP 8.3+, Composer, SSH access recommended.
 
 ### File Structure
@@ -1008,6 +1063,8 @@ For CI/CD, automate: `git pull && composer install --no-dev && ./ava rebuild`
 
 ## Updates
 
+**Full docs:** https://ava.addy.zone/docs/updates
+
 ### CLI Commands
 
 ```bash
@@ -1037,3 +1094,169 @@ Essential folders:
 - `content/` — All content
 - `app/config/` — Settings
 - `themes/` — Custom themes
+
+## API
+
+**Full docs:** https://ava.addy.zone/docs/api
+
+Ava provides building blocks for creating custom APIs rather than shipping a predefined API structure.
+
+### Core Components
+
+- `$app->router()` — Route registration
+- `\Ava\Http\Request` — Query params, headers, body
+- `\Ava\Http\Response` — JSON, redirects, headers
+- `\Ava\Content\Repository` / `\Ava\Content\Query` — Content access
+
+### Request Methods
+
+```php
+$request->method()              // GET, POST, etc.
+$request->isMethod('POST')      // Check method
+$request->path()                // URL path
+$request->query('key', $default)// Query parameter
+$request->header('X-Api-Key')   // Header (case-insensitive)
+$request->body()                // Request body
+$request->expectsJson()         // Accept: application/json
+```
+
+### Response Helpers
+
+```php
+Response::json($data, $status = 200)
+Response::redirect($url, $status = 302)
+Response::text($string, $status = 200)
+Response::html($string, $status = 200)
+
+// Add headers immutably
+Response::json(['ok' => true])->withHeader('Cache-Control', 'no-store');
+```
+
+### Route Registration
+
+```php
+// Exact route with parameters
+$router->addRoute('/api/content/{type}/{slug}', function($request, $params) {
+    $type = $params['type'];
+    $slug = $params['slug'];
+    return Response::json(['type' => $type, 'slug' => $slug]);
+});
+
+// Prefix route (handles all paths under prefix)
+$router->addPrefixRoute('/api/v2/', function($request, $params) {
+    // Match all /api/v2/* paths
+});
+```
+
+### Handler Signature
+
+```php
+function(\Ava\Http\Request $request, array $params): RouteMatch|Response|null
+```
+
+Return `Response` for API endpoints (sent directly). Return `RouteMatch` to trigger template rendering.
+
+### JSON API Plugin Example
+
+```php
+// plugins/json-api/plugin.php
+return [
+    'name' => 'JSON API',
+    'boot' => function($app) {
+        $router = $app->router();
+        
+        $router->addRoute('/api/posts', function($request, $params) use ($app) {
+            $posts = $app->query()
+                ->type('post')
+                ->published()
+                ->orderBy('date', 'desc')
+                ->page((int) $request->query('page', 1))
+                ->perPage(10)
+                ->get();
+            
+            return \Ava\Http\Response::json([
+                'data' => array_map(fn($p) => [
+                    'title' => $p->title(),
+                    'slug' => $p->slug(),
+                    'url' => $p->url(),
+                ], $posts),
+            ]);
+        });
+    }
+];
+```
+
+### Authentication Pattern
+
+```php
+$authenticateRequest = function($request) use ($app): bool {
+    $apiKey = $request->header('X-API-Key') ?? $request->query('api_key');
+    $validKeys = $app->config('api.keys', []);
+    return in_array($apiKey, $validKeys, true);
+};
+
+$router->addRoute('/api/private', function($request, $params) use ($authenticateRequest) {
+    if (!$authenticateRequest($request)) {
+        return Response::json(['error' => 'Unauthorized'], 401);
+    }
+    return Response::json(['ok' => true]);
+});
+```
+
+Store keys in config:
+
+```php
+// app/config/ava.php
+'api' => ['keys' => ['your-secret-api-key-here']],
+```
+
+### Search Endpoint
+
+```php
+$router->addRoute('/api/search', function($request, $params) use ($app) {
+    $query = trim($request->query('q', ''));
+    
+    $results = $app->query()
+        ->type('post')
+        ->published()
+        ->search($query)
+        ->perPage(20)
+        ->get();
+    
+    return Response::json([
+        'results' => array_map(fn($item) => [
+            'title' => $item->title(),
+            'excerpt' => $item->excerpt(),
+        ], $results),
+    ]);
+});
+```
+
+### CORS Headers
+
+```php
+$withCors = function (Response $response): Response {
+    return $response->withHeaders([
+        'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers' => 'Content-Type, X-API-Key',
+    ]);
+};
+
+// Handle OPTIONS preflight
+if ($request->isMethod('OPTIONS')) {
+    return $withCors(new Response('', 204));
+}
+```
+
+### Route Matching Order
+
+1. `router.before_match` hook interception
+2. Trailing slash redirects
+3. `redirect_from` frontmatter redirects
+4. System routes (`addRoute`)
+5. Exact content routes
+6. Preview matching (draft content)
+7. Prefix routes (`addPrefixRoute`)
+8. Taxonomy routes
+9. 404
