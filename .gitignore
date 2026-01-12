@@ -1,44 +1,70 @@
-#Ava Docs
-/app/
-/core/
-/plugins/
-/storage/
-bootstrap.php
-/public/index.php
-composer.json
-composer.lock
-ava
+# Minimal, content-first .gitignore
 
-# Ava CMS
+# Ignore everything by default
+/*
 
-# Dependencies
-/vendor/
+# Keep this file
+!/.gitignore
 
-# Environment and secrets
+# Keep the content and documentation (tracked)
+!/content/
+!/content/**
+
+# Keep app config (but still allow ignoring secrets inside)
+!/app/config/
+!/app/config/**
+app/config/*.local
+
+# Explicitly keep content types config files
+!/app/config/content_types.php
+!/app/config/content_types.php.bak
+
+# Keep themes and plugins
+!/themes/
+!/themes/**
+!/plugins/
+!/plugins/**
+
+# Keep public entry and media (but we'll re-ignore admin.css)
+!/public/
+!/public/index.php
+!/public/media/
+!/public/media/**
+!/public/assets/
+!/public/assets/**
+
+# Re-ignore the admin stylesheet (keep it local)
+/public/assets/admin.css
+
+# Project files to keep
+!/composer.json
+!/composer.lock
+
+# Keep other project files, but don't keep the local CLI or bootstrap in the repo
+/ava
+/bootstrap.php
+
+# Ignore common runtime/build folders
+vendor/
+storage/
+tmp/
+logs/
+node_modules/
+
+# Local env and OS files
 .env
 .env.local
-.env.*.local
-
-# User credentials (sensitive)
-app/config/users.php
-
-# Logs
-*.log
-
-# OS files
 .DS_Store
 Thumbs.db
-.directory
 
-# IDE
+# IDE/editor
 .idea/
 .vscode/
 *.swp
-*.swo
-*~
 
-# PHP
-*.phar
-.php-cs-fixer.cache
-.phpunit.result.cache
+# Logs and caches
+*.log
+*.cache
+
+# End
 
