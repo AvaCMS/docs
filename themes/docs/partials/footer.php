@@ -54,10 +54,10 @@ $isHomepage = $isHomepage ?? false;
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="<?= $ava->asset('instantpage.js') ?>"></script>
-
-    <script src="<?= $ava->asset('docs.js') ?>"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1/themes/prism-one-light.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/autoloader/prism-autoloader.min.js" defer></script>
+    <script src="<?= $ava->asset('instantpage.js') ?>" defer></script>
+    <script src="<?= $ava->asset('docs.js') ?>" defer></script>
 </body>
 </html>

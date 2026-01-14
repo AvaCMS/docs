@@ -234,6 +234,8 @@ mark {
     @media (max-width: 1024px) { display: none; }
 
     & a {
+        display: flex;
+        align-items: center;
         font-size: 0.875rem;
         font-weight: 500;
         color: var(--text-muted);
