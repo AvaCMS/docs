@@ -660,14 +660,6 @@ Add plugin-specific configuration in your `ava.php`. Each plugin documents its a
 // Sitemap plugin settings
 'sitemap' => [
     'enabled' => true,
-    'changefreq' => [
-        'page' => 'monthly',
-        'post' => 'weekly',
-    ],
-    'priority' => [
-        'page' => '0.8',
-        'post' => '0.6',
-    ],
 ],
 
 // Feed plugin settings
@@ -1379,8 +1371,7 @@ return [
     ],
 
     'sitemap' => [
-        'changefreq' => ['page' => 'monthly', 'post' => 'weekly'],
-        'priority'   => ['page' => '0.8', 'post' => '0.6'],
+        'enabled' => true,
     ],
 
     'feed' => [

@@ -3,7 +3,7 @@ title: Ava CMS
 slug: index
 status: published
 template: home
-description: A friendly, flexible, flat-file, PHP-based CMS for bespoke personal websites, blogs and more.
+excerpt: A friendly, flexible, flat-file, PHP-based CMS for bespoke personal websites, blogs and more.
 ---
 
 <div class="hero-brand">
@@ -19,13 +19,13 @@ description: A friendly, flexible, flat-file, PHP-based CMS for bespoke personal
     </svg> 
 
 </div>
-<p class="home-tagline-lead">A fast, flexible, file-based CMS.</p>
+<h2 class="home-tagline-lead">A fast, flexible, file-based CMS.</h2>
 
 <div class="home-features">
     <div class="home-feature">
         <span class="home-feature-icon">📝</span>
         <h3>Markdown & HTML</h3>
-        <p>Write with Markdown for speed, or drop into HTML for total control. Your content is readable, portable, and yours.</p>
+        <p>Write Markdown or HTML in your favourite text editor. Your content stays readable, portable, and yours.</p>
     </div>
     <div class="home-feature">
         <span class="home-feature-icon">⚡</span>
@@ -35,22 +35,22 @@ description: A friendly, flexible, flat-file, PHP-based CMS for bespoke personal
     <div class="home-feature">
         <span class="home-feature-icon">🎨</span>
         <h3>Design freedom</h3>
-        <p>Build exactly what you imagine using standard HTML and CSS. No rigid theme structures or heavy frameworks to fight.</p>
+        <p>Build exactly what you want using whatever HTML, CSS and JavaScript you like. No heavy frameworks to fight here.</p>
     </div>
     <div class="home-feature">
         <span class="home-feature-icon">🧩</span>
         <h3>Model anything</h3>
-        <p>Don't just write posts. Define portfolios, events, or product catalogs in minutes with simple configuration.</p>
+        <p>Complete content control. Define portfolios, events, recipes, products or anything else with custom content types.</p>
     </div>
     <div class="home-feature">
         <span class="home-feature-icon">🚀</span>
-        <h3>Dynamic speed</h3>
-        <p>Get the speed of a static site with the power of a dynamic one. Search and filtering work out of the box.</p>
+        <h3>Dynamic features</h3>
+        <p>Get the speed of a static site with the power of a dynamic one. Searching, sorting and filtering work out of the box.</p>
     </div>
     <div class="home-feature">
         <span class="home-feature-icon">🛠️</span>
         <h3>Dev-friendly</h3>
-        <p>Extend the core with plugins, event hooks, and a robust CLI. Use the tools you know and love.</p>
+        <p>Extend the core with plugins, PHP snippets, shortcodes, event hooks, and a robust CLI. Use the tools you know and love.</p>
     </div>
     <div class="home-feature">
         <span class="home-feature-icon">📈</span>
@@ -58,9 +58,9 @@ description: A friendly, flexible, flat-file, PHP-based CMS for bespoke personal
         <p>Start with simple flat files. Seamlessly switch to a high-performance backend if your site grows massive.</p>
     </div>
     <div class="home-feature">
-        <span class="home-feature-icon">🌍</span>
-        <h3>Host anywhere</h3>
-        <p>Runs on anything from cheap shared hosting to a VPS. No containers or complex infrastructure required.</p>
+        <span class="home-feature-icon">⚡</span>
+        <h3>Blazing fast</h3>
+        <p>Dual cache layers and optimized code paths out of the box ensures your site loads in the blink of an eye.</p>
     </div>
 </div>
 
@@ -69,4 +69,4 @@ description: A friendly, flexible, flat-file, PHP-based CMS for bespoke personal
     <a href="https://github.com/adamgreenough/ava" class="cta-secondary" target="_blank" rel="noopener">View on GitHub</a>
 </div>
 
-<p class="home-requirements">Requires PHP 8.3+</p>
+<p class="home-requirements">Requires PHP 8.3+ and an idea</p>

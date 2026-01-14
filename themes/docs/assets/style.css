@@ -231,7 +231,7 @@ mark {
     align-items: center;
     gap: var(--sp-1);
 
-    @media (max-width: 768px) { display: none; }
+    @media (max-width: 1024px) { display: none; }
 
     & a {
         font-size: 0.875rem;
@@ -256,7 +256,7 @@ mark {
     margin-right: var(--sp-3);
     border-right: 1px solid var(--border);
 
-    @media (max-width: 768px) { display: none; }
+    @media (max-width: 1024px) { display: none; }
 
     & a {
         display: flex;
@@ -341,7 +341,7 @@ mark {
     &:hover { color: var(--text-primary); border-color: var(--accent); }
     & svg { width: 20px; height: 20px; }
 
-    @media (max-width: 768px) { display: flex; }
+    @media (max-width: 1024px) { display: flex; }
 }
 
 /* ==========================================================================
@@ -366,10 +366,15 @@ mark {
     background: var(--bg-body);
     transition: margin-left var(--transition-normal), background-color var(--transition-normal);
 
-    @media (max-width: 768px) { margin-left: 0; }
+    @media (max-width: 1024px) { margin-left: 0; }
 }
 
 .no-sidebar-body .docs-main { margin-left: 0; }
+/* Hide desktop sidebar on non-docs pages but allow mobile menu to work */
+@media (min-width: 1025px) {
+    .hide-sidebar-desktop .sidebar { display: none; }
+    .hide-sidebar-desktop .docs-main { margin-left: 0; }
+}
 
 .docs-content-wrapper {
     display: flex;
@@ -407,7 +412,7 @@ mark {
     z-index: 100;
     transition: background-color var(--transition-normal), transform var(--transition-normal);
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
         transform: translateX(-100%);
 
         &.open {
@@ -419,7 +424,7 @@ mark {
     &.mobile-nav-only {
         display: none;
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             display: block;
             padding-top: var(--sp-4);
 
@@ -496,7 +501,7 @@ mark {
 .sidebar-mobile-nav {
     display: none;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
         display: flex;
         flex-wrap: wrap;
         gap: var(--sp-2);
@@ -1190,7 +1195,7 @@ body.home-hero-page .docs-footer .footer-content { color: var(--text-secondary);
 }
 
 .hero-brand svg {
-    margin: -3rem auto 0;
+    margin: -9% auto 0;
     z-index: 2;
     width: 60%;
     position: relative;
@@ -1311,11 +1316,11 @@ body.home-hero-page .docs-footer .footer-content { color: var(--text-secondary);
 }
 
 .home-feature {
-    background: var(--bg-surface);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 0.875rem 1rem;
     transition: border-color 0.2s, box-shadow 0.2s;
+    backdrop-filter: blur(2px);
 }
 
 .home-feature:hover {
@@ -1323,7 +1328,7 @@ body.home-hero-page .docs-footer .footer-content { color: var(--text-secondary);
 }
 
 [data-theme="dark"] .home-feature {
-    background: rgba(255,255,255,0.03);
+    background: rgba(0,0,0,0.05);
     border-color: rgba(255,255,255,0.1);
 }
 
@@ -1547,7 +1552,7 @@ body.home-hero-page .docs-footer .footer-content { color: var(--text-secondary);
 [data-theme="dark"] .preview-card:hover { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); }
 
 .preview-card-image {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 5 / 4;
     background: var(--bg-subtle);
     border-bottom: 1px solid var(--border);
     overflow: hidden;
@@ -1563,7 +1568,7 @@ body.home-hero-page .docs-footer .footer-content { color: var(--text-secondary);
 
 .preview-card-content { padding: var(--sp-5); }
 
-.preview-card-title {
+.markdown-section .preview-card-title {
     font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);
@@ -1580,7 +1585,7 @@ body.home-hero-page .docs-footer .footer-content { color: var(--text-secondary);
     line-height: 1.5;
 }
 
-.preview-card-meta { font-size: 0.8125rem; color: var(--text-muted); }
+.preview-card-meta { font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 0 !important; }
 .preview-card-meta a { color: var(--text-muted); }
 .preview-card-meta a:hover { color: var(--accent); }
 
@@ -1591,5 +1596,33 @@ body.home-hero-page .docs-footer .footer-content { color: var(--text-secondary);
     gap: var(--sp-6);
     margin: var(--sp-8) 0;
 
-    @media (max-width: 768px) { grid-template-columns: 1fr; gap: var(--sp-5); }
+    @media (max-width: 1024px) { grid-template-columns: 1fr; gap: var(--sp-5); }
 }
+
+/* ==========================================================================
+   12. EXTERNAL LINKS
+   ========================================================================== */
+
+/* Add external link icon to links in content area that don't point to local domain */
+.markdown-section a[href^="http"]:not([href*="ava.addy.zone"]):after,
+.markdown-section a[target="_blank"]:after {
+    content: "";
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 0.25rem;
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center;
+    mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    opacity: 0.5;
+    vertical-align: middle;
+}
+
+/* Exclude images/cards link wrappers */
+.markdown-section a:has(img):after,
+.preview-card a:after {
+    display: none !important;
+}
+

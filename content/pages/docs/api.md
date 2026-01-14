@@ -396,3 +396,19 @@ function jsonResponse(mixed $data, int $status = 200): \Ava\Http\Response {
     return \Ava\Http\Response::json($data, $status);
 }
 ```
+
+## Application Instance
+
+The `\Ava\Application` class is the heart of the framework. It acts as a service container and configuration provider. It is typically passed as `$app` to plugin boot closures.
+
+### Core Methods
+
+| Method | Description |
+|--------|-------------|
+| `config(string $key, $default)` | Get a config value using dot notation (e.g. `site.name`). |
+| `path(string $relative)` | Get an absolute filesystem path from the project root. |
+| `router()` | Get the `\Ava\Routing\Router` instance. |
+| `repository()` | Get the `\Ava\Content\Repository` instance. |
+| `query()` | Create a new `\Ava\Content\Query` instance. |
+| `loadPlugins()` | Manually load plugins and register their hooks. Useful for custom CLI scripts or external integrations designated to run outside the normal request lifecycle. Note: the CLI calls `loadPlugins()` before running `rebuild` so plugin hooks (including `cli.rebuild`) are registered during CLI rebuilds. |
+

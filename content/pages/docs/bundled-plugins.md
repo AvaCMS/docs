@@ -16,9 +16,18 @@ Automatically generates an XML sitemap for search engines like Google.
   <img src="@media:plugin-sitemap.webp" alt="Sitemap plugin screen" />
 </a>
 
-- **What it does:** Creates `sitemap.xml` so search engines can find all your pages.
+- **What it does:** Creates a `sitemap.xml` index that links to individual sitemaps for each content type (e.g., `/sitemap-page.xml`).
 - **How to use:** Just enable it in `app/config/ava.php`.
 - **Customisation:** You can exclude pages by adding `noindex: true` to their frontmatter.
+- **Automation:** Automatically adds the Sitemap URL to your `robots.txt` when you rebuild the site.
+- **Admin Interface:** View sitemap statistics and status directly in the Admin Panel under **Plugins > Sitemap**.
+
+### Behavior
+
+- **Robots handling:** On every index rebuild the plugin will check `public/robots.txt`:
+- Create `robots.txt` if it doesn't exist (with sensible defaults).
+- Add or update the `Sitemap: <url>` line to match your `site.base_url` config.
+- Preserve existing `User-agent` and `Allow` rules when updating.
 
 ### Configuration
 
@@ -26,22 +35,12 @@ Automatically generates an XML sitemap for search engines like Google.
 // app/config/ava.php
 'sitemap' => [
     'enabled' => true,
-    'changefreq' => [
-        'page' => 'monthly',
-        'post' => 'weekly',
-    ],
-    'priority' => [
-        'page' => '0.8',
-        'post' => '0.6',
-    ],
 ],
 ```
 
 | Option | Description |
 |--------|-------------|
 | `enabled` | Enable or disable sitemap generation (default: `true`) |
-| `changefreq` | Per-content-type change frequency hints for search engines |
-| `priority` | Per-content-type priority values (`0.0` to `1.0`) |
 
 ### CLI Commands
 

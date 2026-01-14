@@ -66,7 +66,7 @@
         // We want dots at multiples of spacing. 
         // Example: 32, 64, 96... aligns with 2rem (32px) padding/corners
         
-        for (let i = 1; i < cols; i++) {
+        for (let i = 0; i < cols; i++) {
             for (let j = 1; j < rows; j++) {
                 const x = i * GRID_SPACING + GRID_OFFSET;
                 const y = j * GRID_SPACING + GRID_OFFSET;

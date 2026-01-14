@@ -42,7 +42,7 @@
     // Close sidebar when clicking a link (mobile)
     document.querySelectorAll('.sidebar-nav a, .sidebar-mobile-nav a').forEach(link => {
         link.addEventListener('click', () => {
-            if (window.innerWidth < 768) {
+            if (window.innerWidth <= 1024) {
                 sidebar.classList.remove('open');
                 backdrop?.classList.remove('active');
                 document.body.style.overflow = '';

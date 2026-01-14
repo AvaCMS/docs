@@ -15,8 +15,10 @@
  * @see https://ava.addy.zone/docs/themes#partials
  */
 
-$showSidebar = $showSidebar ?? str_starts_with($request->path(), '/docs');
-$bodyClass = trim(($bodyClass ?? '') . ($showSidebar ? '' : ' no-sidebar-body'));
+$isDocsPage = str_starts_with($request->path(), '/docs');
+// Always show sidebar structure (visually hidden on desktop for non-docs)
+$showSidebar = true;
+$bodyClass = trim(($bodyClass ?? '') . ($isDocsPage ? '' : ' hide-sidebar-desktop'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,6 +76,7 @@ $bodyClass = trim(($bodyClass ?? '') . ($showSidebar ? '' : ' no-sidebar-body'))
                     <a href="/themes"<?= $request->path() === '/themes' ? ' class="active"' : '' ?>>Themes</a>
                     <a href="/plugins"<?= $request->path() === '/plugins' ? ' class="active"' : '' ?>>Plugins</a>
                     <a href="/showcase"<?= $request->path() === '/showcase' ? ' class="active"' : '' ?>>Showcase</a>
+                    <a href="https://github.com/AvaCMS/ava/releases" target="_blank" rel="noopener" class="external-link">Download <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px; opacity:0.7;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                 </nav>
             </div>
             <div class="topbar-right">
@@ -107,20 +110,8 @@ $bodyClass = trim(($bodyClass ?? '') . ($showSidebar ? '' : ' no-sidebar-body'))
         </div>
     </header>
     
-    <div class="docs-layout<?= $showSidebar ? '' : ' no-sidebar' ?>">
+    <div class="docs-layout">
         <div class="sidebar-backdrop"></div>
-        <?php if ($showSidebar): ?>
-            <?= $ava->partial('sidebar', ['request' => $request]) ?>
-        <?php else: ?>
-            <!-- Mobile-only nav menu for non-docs pages -->
-            <aside class="sidebar mobile-nav-only">
-                <nav class="sidebar-mobile-nav">
-                    <a href="/docs"<?= str_starts_with($request->path(), '/docs') ? ' class="active"' : '' ?>>Docs</a>
-                    <a href="/themes"<?= $request->path() === '/themes' ? ' class="active"' : '' ?>>Themes</a>
-                    <a href="/plugins"<?= $request->path() === '/plugins' ? ' class="active"' : '' ?>>Plugins</a>
-                    <a href="/showcase"<?= $request->path() === '/showcase' ? ' class="active"' : '' ?>>Showcase</a>
-                </nav>
-            </aside>
-        <?php endif; ?>
+        <?= $ava->partial('sidebar', ['request' => $request]) ?>
         
         <main class="docs-main">

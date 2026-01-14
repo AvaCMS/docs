@@ -173,6 +173,7 @@ Ava provides these hooks for plugins and themes to extend functionality:
 | `markdown.configure` | Action | Configure CommonMark environment |
 | `admin.register_pages` | Filter | Add custom admin pages |
 | `admin.sidebar_items` | Filter | Add items to admin sidebar |
+| `cli.rebuild` | Action | Run code after content rebuild |
 
 ### Routing Hooks
 
@@ -269,6 +270,28 @@ Hooks::addFilter('admin.sidebar_items', function(array $items, $app) {
         'external' => true,
     ];
     return $items;
+});
+```
+
+### Rebuild Hooks
+
+| Hook | Type | Description | Parameters |
+|------|------|-------------|------------|
+| `indexer.rebuild` | Action | Fires at the end of the Indexer::rebuild() method for every content index rebuild (CLI, automatic on boot, or via the admin). Preferred for content-syncing plugins. | `$app` |
+| `cli.rebuild` | Action | Runs after a rebuild invoked from the CLI only, before the command exits. Useful for CLI-specific post-processing and console output. | `$app` |
+
+```php
+// Run on every content index rebuild (recommended for syncing/publishing external systems)
+Hooks::addAction('indexer.rebuild', function($app) {
+    // Example: Update a remote search index or notify a webhook
+    // This runs regardless of how the index was rebuilt (CLI, auto, admin)
+});
+
+// CLI-only messages: guard console output to avoid polluting web responses
+Hooks::addAction('cli.rebuild', function($app) {
+    if (php_sapi_name() === 'cli') {
+        echo "  \033[32m✔\033[0m Notifying search engine...\n";
+    }
 });
 ```
 

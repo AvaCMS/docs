@@ -10,7 +10,7 @@ A gallery of websites built with Ava CMS. Get inspired by what others are creati
 <div class="showcase-grid">
     <div class="preview-card">
         <div class="preview-card-image">
-            <img src="@media/showcase/ava-addy-zone.webp" alt="Ava CMS Documentation screenshot" />
+            <img src="@media:showcase/ava.addy.zone_.png" alt="Ava CMS Documentation screenshot" />
         </div>
         <div class="preview-card-content">
             <h3 class="preview-card-title"><a href="https://ava.addy.zone" target="_blank" rel="noopener">ava.addy.zone</a></h3>

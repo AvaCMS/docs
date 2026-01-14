@@ -793,6 +793,8 @@ Hooks::addAction('markdown.configure', function($environment) {
 | `markdown.configure` | Action | Configure CommonMark |
 | `admin.register_pages` | Filter | Add admin pages |
 | `admin.sidebar_items` | Filter | Add sidebar items |
+| `indexer.rebuild` | Action | Fires when the content index is rebuilt (CLI, auto, admin). Preferred for content-syncing plugins. |
+| `cli.rebuild` | Action | Runs after a CLI-initiated rebuild, before the command exits (useful for CLI-specific output). |
 
 ### Adding Routes
 
@@ -859,8 +861,6 @@ Generates `/sitemap.xml` for search engines.
 ```php
 'sitemap' => [
     'enabled' => true,
-    'changefreq' => ['page' => 'monthly', 'post' => 'weekly'],
-    'priority' => ['page' => '0.8', 'post' => '0.6'],
 ],
 ```
 

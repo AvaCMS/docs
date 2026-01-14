@@ -22,7 +22,44 @@ When you want more dynamic or advanced features, Ava is still right there with y
 
 If you want your own place on the web—something you can understand, move, back up, and keep for the long haul—Ava is built for that. And if you’re still learning HTML/CSS (or PHP), that’s fine too: Ava stays approachable and grows with you.
 
-## Your Site, On Disk
+## Philosophy
+
+Ava is built for people who like understanding how their site works. It keeps the “just files” simplicity of a static workflow, while giving you dynamic tools when you need them.
+
+<div class="philosophy-grid">
+<div class="philosophy-grid-item">
+
+**📂 Your Files, Your Rules** Content is Markdown with YAML frontmatter (plus optional HTML) and extensible PHP shortcodes. Configuration is plain, readable PHP. Your files are the source of truth.
+
+</div>
+<div class="philosophy-grid-item">
+
+**✍️ Bring Your Own Editor** Write in your favourite text editor, IDE, or even the terminal. Use standard HTML and CSS for themes, and sprinkle in PHP when you want dynamic bits.
+
+</div>
+<div class="philosophy-grid-item">
+
+**🚀 No Database Required** Run happily with no database at all. If your site grows huge, SQLite is available as a single lightweight file to handle big collections while keeping memory usage low.
+
+</div>
+<div class="philosophy-grid-item">
+
+**⚡ Edit Live** Edit a file, refresh your browser, and see the change immediately. No build step, no deploy queue, and no waiting for regeneration.
+
+</div>
+<div class="philosophy-grid-item">
+
+**🎨 Bespoke by Design** Model your site the way you think: blogs, portfolios, recipe collections, changelogs—whatever fits. Custom content types are a first-class feature, not a workaround.
+
+</div>
+<div class="philosophy-grid-item">
+
+**🤖 LLM Friendly** The clean file structure, integrated docs, and straightforward CLI make it easy to pair with AI assistants when building themes and extensions.
+
+</div>
+</div>
+
+## Files in, website out
 
 Ava projects are intentionally simple: your content is text files, your theme is a collection of HTML/PHP templates, and your configuration is plain PHP arrays. No magic, no hidden layers.
 
@@ -87,43 +124,6 @@ Ava is a great fit if:
 - You’d rather keep things simple: files first, database optional.
 
 It won’t be a good fit if you need a drag-and-drop page builder or a huge marketplace of third‑party themes and plugins.
-
-## Philosophy
-
-Ava is built for people who like understanding how their site works. It keeps the “just files” simplicity of a static workflow, while giving you dynamic tools when you need them.
-
-<div class="philosophy-grid">
-<div class="philosophy-grid-item">
-
-**📂 Your Files, Your Rules** Content is Markdown with YAML frontmatter (plus optional HTML) and extensible PHP shortcodes. Configuration is plain, readable PHP. Your files are the source of truth.
-
-</div>
-<div class="philosophy-grid-item">
-
-**✍️ Bring Your Own Editor** Write in your favourite text editor, IDE, or even the terminal. Use standard HTML and CSS for themes, and sprinkle in PHP when you want dynamic bits.
-
-</div>
-<div class="philosophy-grid-item">
-
-**🚀 No Database Required** Run happily with no database at all. If your site grows huge, SQLite is available as a single lightweight file to handle big collections while keeping memory usage low.
-
-</div>
-<div class="philosophy-grid-item">
-
-**⚡ Edit Live** Edit a file, refresh your browser, and see the change immediately. No build step, no deploy queue, and no waiting for regeneration.
-
-</div>
-<div class="philosophy-grid-item">
-
-**🎨 Bespoke by Design** Model your site the way you think: blogs, portfolios, recipe collections, changelogs—whatever fits. Custom content types are a first-class feature, not a workaround.
-
-</div>
-<div class="philosophy-grid-item">
-
-**🤖 LLM Friendly** The clean file structure, integrated docs, and straightforward CLI make it easy to pair with AI assistants when building themes and extensions.
-
-</div>
-</div>
 
 ## Core Features
 

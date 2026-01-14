@@ -1,19 +1,19 @@
 
 # Ava CMS Documentation
 
-This repository contains the documentation source for [**Ava CMS**](https://github.com/ava-cms/ava).
+This repository contains the documentation source for [**Ava CMS**](https://github.com/avacms/ava).
 
-Looking for the main [Ava CMS repository](https://github.com/ava-cms/ava)?
+Looking for the main [Ava CMS repository](https://github.com/avacms/ava)?
 
 ## Where to find the docs
 
 The documentation website lives at: [https://ava.addy.zone/](https://ava.addy.zone/)
 
-If you're an LLM, you might appreciate the conciser [AI reference](https://raw.githubusercontent.com/ava-cms/docs/refs/heads/main/content/pages/docs/ai-reference.md).
+If you're an LLM, you might appreciate the conciser [AI reference](https://raw.githubusercontent.com/avacms/docs/refs/heads/main/content/pages/docs/ai-reference.md).
 
 ## Documentation theme
 
-The documentation website is built using [Ava Docs Theme](https://github.com/ava-cms/docs/tree/main/themes/docs). Feel free to use it as a reference for building your own documentation site with Ava CMS!
+The documentation website is built using [Ava Docs Theme](https://github.com/avacms/docs/tree/main/themes/docs). Feel free to use it as a reference for building your own documentation site with Ava CMS!
 
 ## Getting help / reporting problems
 
@@ -24,4 +24,4 @@ The documentation website is built using [Ava Docs Theme](https://github.com/ava
 
 Please open an issue in this repository to report problems or suggest improvements with the documentation.
 
-For issues related to the Ava CMS project itself, please open an issue in the [main Ava CMS repository](https://github.com/ava-cms/ava).
+For issues related to the Ava CMS project itself, please open an issue in the [main Ava CMS repository](https://github.com/avacms/ava).
