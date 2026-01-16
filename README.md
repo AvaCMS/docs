@@ -25,3 +25,9 @@ The documentation website is built using [Ava Docs Theme](https://github.com/ava
 Please open an issue in this repository to report problems or suggest improvements with the documentation.
 
 For issues related to the Ava CMS project itself, please open an issue in the [main Ava CMS repository](https://github.com/avacms/ava).
+
+## Documentation License
+
+Unlike the Ava CMS itself, this documentation and project is not licensed under an open-source license and is the intellectual property of Adam Greenough.
+
+Copyright (c) Adam Greenough 2025-2026. All rights reserved.
