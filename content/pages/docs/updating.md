@@ -15,6 +15,9 @@ Keeping Ava CMS up to date is easy. We release updates regularly with new featur
 <strong>Always ensure you have a good backup before attempting to update.</strong> Ava CMS is in fairly early development and while we hope the updater will continue to seamlessly carry you through future versions, breaking changes may occur. See <a href="#backup-strategies">Backup Strategies</a> below.
 </div>
 
+<div class="callout-info">Anybody on an early dated release (v25.12.X) should manually update to v1+ by following the <a href="#content-manual-updates">manual update instructions</a>.
+</div>
+
 ## How to Update
 
 The easiest way is using the [CLI](/docs/cli):
