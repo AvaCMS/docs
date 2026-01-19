@@ -25,8 +25,8 @@ $bodyClass = trim(($bodyClass ?? '') . ($isDocsPage ? '' : ' hide-sidebar-deskto
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" href="/media/icon.png">
+    <link rel="icon" type="image/png" href="https://ava.addy.zone/media/icon.png">
+    <link rel="apple-touch-icon" href="https://ava.addy.zone/media/icon.png">
     
     <meta name="robots" content="index, follow">
     <meta name="author" content="<?= $ava->e($site['name']) ?>">

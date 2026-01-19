@@ -17,11 +17,11 @@ excerpt: Ava CMS is a blazing fast and flexible flat-file CMS where your content
 
 </div>
 
-Ava (Addy’s very adaptable) CMS is a fast, flexible, file-based PHP CMS for bespoke websites. Create a file, write in Markdown (with optional HTML), and you have a page. Edit it, refresh, and it’s live — no build step.
+Ava (Addy’s very adaptable) CMS (Content Management System) is a fast, flexible, file-based PHP CMS for bespoke websites. Create a file, write in Markdown (with optional HTML), and you have a page. Edit it, refresh, and it’s live — no build step.
 
-Your site stays transparent: content is plain text files you can read, move, and version. Use the optional admin dashboard when it’s convenient, or stick to your favourite editor and tools — Ava fits your workflow.
+Content is plain text files you can read, move, and version. Use the optional admin dashboard when it’s convenient, or stick to your favourite editor and tools — Ava CMS fits your workflow.
 
-When you need more power, Ava adds it without hiding the structure: PHP themes, custom content types and fields, taxonomies, search, caching, plugins, and a friendly CLI. The idea stays simple: files in, website out.
+When you need more power, Ava CMS adds it without hiding the structure: PHP themes, custom content types and fields, taxonomies, search, caching, plugins, and a friendly CLI. The idea stays simple: files in, website out.
 
 ## Philosophy
 
@@ -35,7 +35,7 @@ Ava CMS is for people who like owning and understanding how their site works. It
 </div>
 <div class="philosophy-grid-item">
 
-**⚡ Instant Feedback** Edit a file and refresh — no build step, no deploy queue. Auto-indexing keeps routing, lists, and search up to date as you work.
+**⚡ Instant Feedback** Edit a file and refresh — no build step, no deploy queue. Auto-indexing mode keeps routing, lists, and search up to date as you work.
 
 </div>
 <div class="philosophy-grid-item">

@@ -111,7 +111,7 @@ Write in <span class="t-white">Markdown</span> and sprinkle in <span class="t-cy
 <span class="t-dim">-</span> Version control ready
 <span class="t-dim">-</span> No database needed</samp></pre>
                                                                                 </div>
-                    <img src="/media/admin-content.webp" alt="Admin Panel" class="compare-after">
+                    <img src="/media/admin-editor.webp" alt="Admin Panel" class="compare-after">
                     <div class="compare-handle">
                         <div class="compare-handle-line"></div>
                         <div class="compare-handle-circle">
@@ -126,7 +126,7 @@ Write in <span class="t-white">Markdown</span> and sprinkle in <span class="t-cy
             <div class="home-breakdown-text">
                 <h3>Publish in Markdown or HTML</h3>
                 <p>Write content in Markdown or HTML using any editor you’re comfortable with, or the optional admin when it’s convenient. Everything is stored as readable files you can open, version, and move around freely.</p>
-                <p>Frontmatter keeps metadata clear and predictable, while custom fields add structure and validation where you want it. SEO features are baked in with frontmatter metadata, schema and OpenGraph features — to control search snippets and social previews. Shortcodes help you reuse common patterns without cluttering your content.</p>
+                <p>Frontmatter keeps metadata clear and predictable, while custom fields add structure and validation where you want it. SEO features are baked in with frontmatter metadata, schema and OpenGraph features to control search snippets and social previews. Shortcodes help you reuse common patterns without cluttering your content.</p>
                 <a href="/docs/content" class="breakdown-link">Learn about content →</a>
             </div>
         </div>
