@@ -60,6 +60,21 @@
     });
 })();
 
+// Collapsible sidebar nav sections
+(function () {
+    const navHeadings = document.querySelectorAll('.sidebar-nav .nav-heading');
+    
+    navHeadings.forEach(heading => {
+        heading.addEventListener('click', function () {
+            const group = this.closest('.nav-group');
+            if (!group) return;
+            
+            const isCollapsed = group.classList.toggle('collapsed');
+            this.setAttribute('aria-expanded', !isCollapsed);
+        });
+    });
+})();
+
 // Build Table of Contents from headings (only runs if TOC exists)
 (function () {
     const tocList = document.getElementById('toc-list');
@@ -316,6 +331,75 @@
             break;
         }
     })();
+})();
+
+// GitHub Star Count
+(function() {
+    const starElements = document.querySelectorAll('.github-stars[data-repo]');
+    if (!starElements.length) return;
+    
+    const CACHE_KEY = 'github-stars-cache';
+    const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
+    
+    function formatStars(count) {
+        if (count >= 1000) {
+            return (count / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+        }
+        return count.toString();
+    }
+    
+    function getCachedStars(repo) {
+        try {
+            const cache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}');
+            const entry = cache[repo];
+            if (entry && Date.now() - entry.timestamp < CACHE_DURATION) {
+                return entry.stars;
+            }
+        } catch (e) {}
+        return null;
+    }
+    
+    function setCachedStars(repo, stars) {
+        try {
+            const cache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}');
+            cache[repo] = { stars, timestamp: Date.now() };
+            localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+        } catch (e) {}
+    }
+    
+    function updateStarElements(repo, stars) {
+        document.querySelectorAll(`.github-stars[data-repo="${repo}"]`).forEach(el => {
+            // Append count after existing content (star icon)
+            const countSpan = document.createElement('span');
+            countSpan.textContent = formatStars(stars);
+            el.appendChild(countSpan);
+            el.classList.add('loaded');
+        });
+    }
+    
+    // Group by repo to avoid duplicate API calls
+    const repos = new Set();
+    starElements.forEach(el => repos.add(el.dataset.repo));
+    
+    repos.forEach(repo => {
+        // Check cache first
+        const cached = getCachedStars(repo);
+        if (cached !== null) {
+            updateStarElements(repo, cached);
+            return;
+        }
+        
+        // Fetch from GitHub API
+        fetch(`https://api.github.com/repos/${repo}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.stargazers_count !== undefined) {
+                    setCachedStars(repo, data.stargazers_count);
+                    updateStarElements(repo, data.stargazers_count);
+                }
+            })
+            .catch(() => {});
+    });
 })();
 
 // GitHub Star Toast
