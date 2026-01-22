@@ -239,7 +239,8 @@ The simplest approach—no special tools required:
 3. Upload to your web host (via SFTP, your host's file manager, or however you prefer)
 4. Run `composer install` to install dependencies
 5. [Configure](/docs/configuration) your site by editing `app/config/ava.php`
-6. Visit your site!
+6. Run `./ava rebuild` to build the content index
+7. Visit your site!
 
 ### Download Latest Release (Command Line)
 
@@ -254,6 +255,8 @@ unzip -q ./*.zip -d /path/to/your/site
 cd /path/to/your/site
 composer install
 ```
+
+Then [configure](/docs/configuration) your site by editing `app/config/ava.php` and run `./ava rebuild` to build the content index.
 
 **Option B: `curl` (uses PHP to pick the right ZIP asset)**
 
@@ -276,7 +279,7 @@ cd /path/to/your/site
 composer install
 ```
 
-Then [configure](/docs/configuration) your site by editing `app/config/ava.php` and visit your site.
+Then [configure](/docs/configuration) your site by editing `app/config/ava.php`, run `./ava rebuild` to build the content index, and visit your site.
 
 ### Local Development (Optional)
 
