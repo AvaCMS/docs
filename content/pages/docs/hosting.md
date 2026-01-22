@@ -155,6 +155,10 @@ cd ~/ava           # Go to your Ava folder
 ./ava cache:clear  # Clear webpage cache
 ```
 
+<div class="callout-info">
+<strong>Permission Denied?</strong> If you get a "permission denied" error when running <code>./ava</code>, the file needs execute permissions. Run <code>chmod +x ava</code> once to make it executable, then try again.
+</div>
+
 <details class="beginner-box">
 <summary>Optional: Using SSH keys instead of passwords</summary>
 <div class="beginner-box-content">

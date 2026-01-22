@@ -288,6 +288,10 @@ php -S localhost:8000 -t public
 
 Then visit [http://localhost:8000](http://localhost:8000) in your browser.
 
+<div class="callout-info">
+<strong>CLI Permission Denied?</strong> If you get a "permission denied" error when running <code>./ava</code> commands, run <code>chmod +x ava</code> to make the script executable. This is common after extracting from a ZIP or uploading via SFTP. See the <a href="/docs/cli#troubleshooting-permission-denied">CLI documentation</a> for more details.
+</div>
+
 <details class="beginner-box">
 <summary>Ready for Production?</summary>
 <div class="beginner-box-content">

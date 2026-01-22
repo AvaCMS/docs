@@ -48,6 +48,31 @@ It’s the folder that contains your Ava CMS project — where you can see `comp
 
 To run Ava CMS commands on your live site, you'll need to connect via SSH. See the [Hosting Guide](/docs/hosting#ssh-running-commands-on-your-server) for a complete walkthrough of SSH setup, clients, and connecting to your server.
 
+### Troubleshooting: Permission Denied
+
+If you see a "permission denied" error when trying to run `./ava`, the script doesn't have execute permissions. This is common after uploading files via SFTP or extracting from a ZIP.
+
+**Fix it once:**
+
+```bash
+chmod +x ava
+```
+
+This grants execute permissions to the `ava` script. You only need to run this once per installation.
+
+**What does chmod do?**
+
+`chmod` (change mode) modifies file permissions on Unix-like systems. The `+x` flag adds execute permission, allowing you to run the file as a program. Without it, your system treats `ava` as a text file rather than an executable script.
+
+**Alternative:** If you can't or don't want to change permissions, you can always run commands through PHP directly:
+
+```bash
+php ava status
+php ava rebuild
+```
+
+This works identically to `./ava` but doesn't require execute permissions.
+
 
 
 ## Getting Help
