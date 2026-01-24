@@ -1,5 +1,41 @@
 // Docs theme frontend interactions (search overlay, sidebar, toc, theme toggle)
 
+// Heading anchor links for quick copy
+(function () {
+    const article = document.querySelector('.markdown-section');
+    if (!article) return;
+
+    const linkIcon = '<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>';
+    const checkIcon = '<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path></svg>';
+
+    const headings = article.querySelectorAll('h2[id], h3[id], h4[id], h5[id], h6[id]');
+    
+    headings.forEach(heading => {
+        const anchor = document.createElement('a');
+        anchor.href = '#' + heading.id;
+        anchor.className = 'heading-anchor';
+        anchor.setAttribute('aria-label', 'Copy link to this section');
+        anchor.innerHTML = linkIcon;
+        
+        anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = window.location.origin + window.location.pathname + '#' + heading.id;
+            navigator.clipboard.writeText(url).then(() => {
+                anchor.innerHTML = checkIcon;
+                anchor.classList.add('copied');
+                setTimeout(() => {
+                    anchor.innerHTML = linkIcon;
+                    anchor.classList.remove('copied');
+                }, 1500);
+            });
+            // Also update the URL hash
+            history.pushState(null, null, '#' + heading.id);
+        });
+        
+        heading.appendChild(anchor);
+    });
+})();
+
 // Theme toggle functionality
 (function () {
     const themeToggle = document.querySelector('.theme-toggle');

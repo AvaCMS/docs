@@ -923,6 +923,45 @@ mark {
         letter-spacing: 0.01em;
     }
     
+    & h2,
+    & h3,
+    & h4,
+    & h5,
+    & h6 {
+        & .heading-anchor {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: var(--sp-2);
+            padding: var(--sp-1);
+            color: var(--text-tertiary);
+            text-decoration: none;
+            vertical-align: middle;
+            border-radius: var(--radius-sm);
+            opacity: 0;
+            transition: opacity var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+            
+            &:hover {
+                color: var(--accent);
+                background: var(--accent-subtle);
+            }
+            
+            &.copied {
+                opacity: 1;
+                color: var(--success);
+                background: rgba(34, 197, 94, 0.1);
+            }
+            
+            &::after {
+                display: none !important;
+            }
+        }
+        
+        &:hover .heading-anchor {
+            opacity: 1;
+        }
+    }
+    
     & h4,
     & h5,
     & h6 {
@@ -2984,5 +3023,38 @@ body.home-hero-page {
 /* Exclude images/cards link wrappers */
 .markdown-section a:has(img)::after,
 .preview-card a::after {
+    display: none !important;
+}
+
+/* ==========================================================================
+   15. DOCS FEEDBACK LINK
+   ========================================================================== */
+
+.docs-feedback {
+    margin-top: var(--sp-10);
+    padding-top: var(--sp-6);
+    border-top: 1px solid var(--border-light);
+}
+
+.docs-feedback-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    
+    &:hover {
+        color: var(--accent);
+    }
+    
+    svg {
+        flex-shrink: 0;
+    }
+}
+
+/* Don't show external link icon on feedback link */
+.docs-feedback-link::after {
     display: none !important;
 }

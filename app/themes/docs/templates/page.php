@@ -37,6 +37,24 @@ $bodyClass = $isHomepage ? 'home-landing' : '';
                     <article class="markdown-section">
                         <?= $ava->body($content) ?>
                     </article>
+                    
+                    <?php if ($showSidebar): ?>
+                    <?php
+                        $issueTitle = urlencode('Docs feedback: ' . $content->title());
+                        $pageUrl = 'https://ava.addy.zone' . $request->path();
+                        $issueBody = urlencode("## Page\n{$pageUrl}\n\n## Feedback\n<!-- Describe the issue or suggestion -->\n\n");
+                        $issueUrl = "https://github.com/avacms/docs/issues/new?title={$issueTitle}&body={$issueBody}&labels=documentation";
+                    ?>
+                    <div class="docs-feedback">
+                        <a href="<?= $issueUrl ?>" target="_blank" rel="noopener" class="docs-feedback-link">
+                            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"></path>
+                            </svg>
+                            Submit an issue or question about this page on GitHub
+                        </a>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 
                 <?php if ($showToc): ?>
