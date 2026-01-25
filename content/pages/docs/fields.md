@@ -6,7 +6,7 @@ meta_description: Define typed fields in content_types.php for admin UI renderin
 excerpt: Ava CMS includes a powerful field validation system. Define typed fields in your content type configuration to get admin UI rendering, CLI linting, and real-time validation.
 ---
 
-Ava CMS includes a field system that validates content and renders appropriate admin UI inputs. You define fields in your [content type configuration](/docs/configuration#content-types-content_typesphp), and Ava CMS handles the rest.
+Ava CMS includes a field system that validates content and renders appropriate admin UI inputs. You define fields in your [content type configuration](/docs/configuration#content-content-types-content_typesphp), and Ava CMS handles the rest.
 
 **What fields give you:**
 

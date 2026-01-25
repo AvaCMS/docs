@@ -125,7 +125,7 @@ content/
     └── my-new-page.md   ← create your file here
 ```
 
-Add frontmatter and content, then save. If cache mode is `auto`, the site updates immediately.
+Add frontmatter and content, then save. If `content_index.mode` is `auto` (the default) or `always`, the site updates immediately. If it’s `never`, run `./ava rebuild` or rebuild from the admin dashboard.
 
 ### Via the Admin Dashboard
 

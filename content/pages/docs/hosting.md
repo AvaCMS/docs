@@ -156,7 +156,10 @@ Ava CMS has a simple flat structure:
 
 1. Upload Ava CMS to your home directory (e.g., `/home/yourusername/`).
 2. Point your domain's document root to the `public/` folder.
-3. Run `composer install --no-dev` and `./ava rebuild`.  
+3. Run `composer install --no-dev` and `./ava rebuild`.
+
+If your `content_index.mode` is set to `auto` (the default) or `always`, the first request will rebuild automatically. If it’s set to `never`, you must run `./ava rebuild` (or trigger a rebuild from the admin dashboard).
+
 **If SSH isn't available**, generate the `vendor/` folder locally, upload it, then rebuild via the admin dashboard.
 
 <div class="callout-info">
@@ -362,11 +365,13 @@ server {
 
 ### Apache
 
-Ava CMS includes a `.htaccess` file in `public/`. Just enable `mod_rewrite`:
+Ava CMS ships with a default `.htaccess` file in `public/`. Ensure `mod_rewrite` is enabled:
 
 ```bash
 sudo a2enmod rewrite && sudo systemctl restart apache2
 ```
+
+**Need to customize?** Edit `public/.htaccess` or move the rules into your Apache vhost.
 
 </details>
 

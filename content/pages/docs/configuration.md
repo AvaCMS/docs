@@ -67,7 +67,7 @@ return [
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `site.name` | string | `'Ava CMS Site'` | Your site's display name. Used in templates, RSS feeds, sitemaps, and admin. |
+| `site.name` | string | `'My Ava Site'` | Your site's display name. Used in templates, RSS feeds, sitemaps, and admin. |
 | `site.base_url` | string | required | Full URL (**no trailing slash**). Used for sitemaps, canonical URLs, and absolute links. |
 | `site.timezone` | string | `'UTC'` | Timezone for dates. Use a [PHP timezone identifier](https://www.php.net/manual/en/timezones.php). |
 | `site.locale` | string | `'en_GB'` | Locale for date/number formatting. See [PHP locale codes](https://www.php.net/manual/en/function.setlocale.php). |
@@ -128,16 +128,16 @@ The content index is a binary snapshot of your content metadata—used to avoid 
     'mode'           => 'auto',   // When to rebuild: auto, never, always
     'backend'        => 'array',  // Storage: array or sqlite
     'use_igbinary'   => true,     // Faster serialization if available
-    'prerender_html' => false,    // Pre-render Markdown during rebuild
+    'prerender_html' => true,     // Pre-render Markdown during rebuild
 ],
 ```
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `mode` | string | `'auto'` | `auto` = rebuild when files change, `never` = CLI only (production), `always` = every request (debug only). |
+| `mode` | string | `'auto'` | `auto` = rebuild when files change, `never` = rebuild via CLI/admin dashboard only (production), `always` = every request (debug only). |
 | `backend` | string | `'array'` | `array` = binary PHP arrays (default), `sqlite` = SQLite database (for 10k+ items). |
 | `use_igbinary` | bool | `true` | Use igbinary extension for faster serialization if installed. |
-| `prerender_html` | bool | `false` | Pre-render Markdown → HTML during rebuild to speed up uncached requests. |
+| `prerender_html` | bool | `true` | Pre-render Markdown → HTML during rebuild to speed up uncached requests. |
 
 **See:** [Performance - Content Indexing](/docs/performance#content-content-indexing) for detailed explanations of modes, backends, tiered caching, and benchmarks.
 
@@ -149,15 +149,15 @@ The webpage cache stores fully-rendered HTML for near-instant serving.
 'webpage_cache' => [
     'enabled' => true,
     'ttl'     => null,       // Seconds, or null = until rebuild
-    'exclude' => ['/api/*'], // URL patterns to never cache
+    'exclude' => ['/api/*', '/preview/*'], // URL patterns to never cache
 ],
 ```
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `enabled` | bool | `false` | Enable HTML webpage caching. Recommended `true` for production. |
+| `enabled` | bool | `true` | Enable HTML webpage caching. Recommended `true` for production. |
 | `ttl` | int\|null | `null` | Cache lifetime in seconds. `null` = cached until next rebuild. |
-| `exclude` | array | `[]` | URL patterns to never cache. Supports glob wildcards (`*`). |
+| `exclude` | array | `['/api/*', '/preview/*']` | URL patterns to never cache. Supports glob wildcards (`*`). |
 
 **See:** [Performance - Webpage Caching](/docs/performance#content-webpage-caching) for how it works, fast-path optimization, and cache management.
 
@@ -200,7 +200,7 @@ Controls how Ava CMS processes your Markdown content files.
 | `frontmatter.format` | string | `'yaml'` | Frontmatter parser format. Currently only YAML is supported. |
 | `markdown.allow_html` | bool | `true` | Allow raw HTML tags in Markdown content. |
 | `markdown.heading_ids` | bool | `true` | Add `id` attributes to headings for deep linking. |
-| `markdown.disallowed_tags` | array | `[]` | HTML tags to strip even when `allow_html` is true. |
+| `markdown.disallowed_tags` | array | `['script', 'noscript']` | HTML tags to strip even when `allow_html` is true. |
 | `id.type` | string | `'ulid'` | ID format for new content: `'ulid'` (recommended) or `'uuid7'`. |
 
 **See:** [Writing Content](/docs/content) for frontmatter fields and Markdown syntax.
@@ -468,6 +468,7 @@ Define what kinds of content your site has. Each content type specifies where fi
 return [
     'page' => [
         'label'       => 'Pages',
+        'icon'        => 'description',
         'content_dir' => 'pages',
         'url' => [
             'type' => 'hierarchical',
@@ -479,10 +480,15 @@ return [
         'taxonomies' => [],
         'fields'     => [],
         'sorting'    => 'manual',
+        'search' => [
+            'enabled' => true,
+            'fields'  => ['title', 'body'],
+        ],
     ],
 
     'post' => [
         'label'       => 'Posts',
+        'icon'        => 'article',
         'content_dir' => 'posts',
         'url' => [
             'type'    => 'pattern',
@@ -494,7 +500,12 @@ return [
             'archive' => 'archive.php',
         ],
         'taxonomies' => ['category', 'tag'],
+        'fields'     => [],
         'sorting'    => 'date_desc',
+        'search' => [
+            'enabled' => true,
+            'fields'  => ['title', 'excerpt', 'body'],
+        ],
     ],
 ];
 ```
@@ -504,6 +515,7 @@ return [
 | Option | Type | Required | Description |
 |--------|------|----------|-------------|
 | `label` | string | Yes | Human-readable name shown in admin UI. |
+| `icon` | string | No | Material icon name for admin UI. |
 | `content_dir` | string | Yes | Folder inside `content/` where files for this type live. |
 | `url` | array | Yes | URL generation settings. See [Routing - URL Styles](/docs/routing#content-url-styles). |
 | `templates` | array | Yes | Template file mappings (`single`, `archive`). |
@@ -552,7 +564,7 @@ Here's a more complete example showing custom fields for a blog post type:
             'default' => 5,
         ],
         'featured' => [
-            'type'    => 'boolean',
+            'type'    => 'checkbox',
             'label'   => 'Featured Post',
             'default' => false,
         ],
@@ -563,7 +575,7 @@ Here's a more complete example showing custom fields for a blog post type:
 ],
 ```
 
-**See:** [Fields](/docs/fields) for all available field types (text, number, boolean, select, date, etc.) and validation options.
+**See:** [Fields](/docs/fields) for all available field types (text, number, checkbox, select, date, etc.) and validation options.
 
 ## Taxonomies: `taxonomies.php`
 
@@ -575,6 +587,7 @@ Taxonomies organize content into groups (categories, tags, authors, etc.).
 return [
     'category' => [
         'label'        => 'Categories',
+        'icon'         => 'folder',
         'hierarchical' => true,
         'public'       => true,
 
@@ -596,6 +609,7 @@ return [
 
     'tag' => [
         'label'        => 'Tags',
+        'icon'         => 'tag',
         'hierarchical' => false,
         'public'       => true,
 
@@ -620,6 +634,7 @@ return [
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `label` | string | Required | Human-readable name for the taxonomy. |
+| `icon` | string | `null` | Material icon name for admin UI. |
 | `hierarchical` | bool | `false` | Support parent/child term relationships. |
 | `public` | bool | `true` | Create public archive pages for terms. |
 | `rewrite.base` | string | `'/{taxonomy}'` | URL prefix for term archives. |

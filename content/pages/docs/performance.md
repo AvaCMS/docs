@@ -247,8 +247,8 @@ All content index settings live in `app/config/ava.php`:
     // Compression (array backend only)
     'use_igbinary' => true,     // Uses igbinary if available, otherwise serialize()
 
-    // Optional: pre-render Markdown → HTML during rebuild (experimental)
-    'prerender_html' => false,  // Stores rendered HTML for published items
+    // Optional: pre-render Markdown → HTML during rebuild
+    'prerender_html' => true,   // Stores rendered HTML for published items
 ],
 ```
 
@@ -257,9 +257,9 @@ All content index settings live in `app/config/ava.php`:
 | `mode` | `'auto'` (rebuild on changes)<br>`'never'` (manual only)<br>`'always'` (every request) | `'auto'` for development<br>`'never'` for production |
 | `backend` | `'array'` or `'sqlite'` | `'array'` < 10k posts<br>`'sqlite'` for 10k+ |
 | `use_igbinary` | `true` or `false` | Keep `true` (auto-detects) |
-| `prerender_html` | `true` or `false` | `false` unless you need it |
+| `prerender_html` | `true` or `false` | `true` (default). Disable if you prefer faster rebuilds. |
 
-**About prerender_html:** This is an experimental feature that pre-renders Markdown → HTML during rebuild and stores it in `html_cache.bin`. It can speed up uncached page renders, but most sites won't need it since webpage caching already makes pages instant.
+**About prerender_html:** This pre-renders Markdown → HTML during rebuild and stores it in `html_cache.bin`. It speeds up uncached renders but increases rebuild time and cache size.
 
 
 
@@ -278,7 +278,7 @@ Webpage caching is where the real performance magic happens. After the first vis
 3. **HIT:** Return cached HTML (response headers: `X-Page-Cache: HIT`, `X-Cache-Age: <seconds>`)
 4. **MISS:** Render page, save to cache, return HTML (header: `X-Page-Cache: MISS`)
 
-**Fast path optimization:** On cache HITs for `GET` requests from non-admin users without query strings, Ava CMS can serve the HTML **before the application even boots**. No plugin loading, no index checks—just pure static file serving.
+**Fast path optimization:** On cache HITs for `GET` requests without query strings (except UTM) and outside the admin path, Ava CMS can serve the HTML **before the application even boots**. No plugin loading, no index checks—just pure static file serving.
 
 ### Configuration
 
@@ -320,8 +320,7 @@ cache: false    # This page always renders fresh
 - Homepage and pagination
 
 **❌ Never cached:**
-- Admin area (`/ava-admin/*`)
-- Requests from logged-in admins
+- Admin area (your configured admin path, e.g. `/ava-admin/*`)
 - URLs with query parameters (except UTM marketing params)
 - Pages with `cache: false` in frontmatter
 - POST/PUT/DELETE requests
@@ -351,13 +350,13 @@ Use `./ava status` to see everything at a glance:
 
 <pre><samp><span class="t-cyan">   ▄▄▄  ▄▄ ▄▄  ▄▄▄     ▄▄▄▄ ▄▄   ▄▄  ▄▄▄▄
   ██▀██ ██▄██ ██▀██   ██▀▀▀ ██▀▄▀██ ███▄▄
-  ██▀██  ▀█▀  ██▀██   ▀████ ██   ██ ▄▄██▀</span>   <span class="t-dim">v1.0.0</span>
+    ██▀██  ▀█▀  ██▀██   ▀████ ██   ██ ▄▄██▀</span>   <span class="t-dim">v1.0.0</span>
 
   <span class="t-dim">───</span> <span class="t-cyan t-bold">Content Index</span> <span class="t-dim">─────────────────────────────────────</span>
 
   <span class="t-dim">Status:</span>     <span class="t-green">● Fresh</span>
-  <span class="t-dim">Mode:</span>       <span class="t-white">auto</span>
-  <span class="t-dim">Backend:</span>    <span class="t-cyan">Array</span> <span class="t-dim">(igbinary)</span>
+    <span class="t-dim">Mode:</span>       <span class="t-white">auto</span>
+    <span class="t-dim">Backend:</span>    <span class="t-cyan">Array</span> <span class="t-dim">(igbinary)</span>
   <span class="t-dim">Cache:</span>      <span class="t-dim">Full index</span> 4.2 MB, <span class="t-dim">Slug lookup</span> 412 KB
   <span class="t-dim">Built:</span>      <span class="t-dim">2026-01-12 14:30:00</span>
 
@@ -389,10 +388,9 @@ rm storage/cache/fingerprint.json  # Force rebuild on next request
 **Check these in order:**
 
 1. **Is caching enabled?** Run `./ava status` or check `'webpage_cache.enabled'` in config
-2. **Are you logged into admin?** Log out—admins always bypass cache
-3. **Query parameters?** URLs with `?params` (except UTM) won't cache
-4. **Exclude pattern match?** Check `'webpage_cache.exclude'` in config
-5. **Page has `cache: false`?** Check the page's frontmatter
+2. **Query parameters?** URLs with `?params` (except UTM) won't cache
+3. **Exclude pattern match?** Check `'webpage_cache.exclude'` in config
+4. **Page has `cache: false`?** Check the page's frontmatter
 
 #### High memory usage
 
